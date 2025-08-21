@@ -1,0 +1,40 @@
+Before:
+1. LDW $R7, 0($R3) ;
+2. ADDU $R3, $R3, $R4 ;
+3. MUL.F $R8, $R2, $R7 ;
+4. LDW $R7, 0($R5) ;
+5. ADD.F $R9, $R7, $R8 ;
+6. STW $R9, 0($R5) ;
+7. ADDU $R5, $R5, $R6 ;
+8. ADDI $R1, $R1, -1 ;
+9. BNE $R1, $0 ;
+
+1. LDW $R7, 0($R3) ;
+4. LDW $R10, 0($R5) ;
+2. ADDU $R3, $R3, $R4 ;
+3. MUL.F $R8, $R2, $R7 ;
+7. ADDU $R5, $R5, $R6 ;
+8. ADDI $R1, $R1, -1 ;
+5. ADD.F $R9, $R10, $R8 ;
+6. STW $R9, 0($R5) ;
+9. BNE $R1, $0 ;
+
+
+First iter: LDW1: R7, LDW2: R10, MUL: R8, ADD.F: R9
+Second iter: LDW1: R13, LDW2: R14, MUL: R15, ADD.F: R16
+Assuming the data size is 4 Bytes. R4 and R6 would now contain double the value
+
+1. LDW $R7, 0($R3) ;
+4. LDW $R10, 0($R5) ;
+1. LDW $R13, 4($R3) ;
+3. MUL.F $R8, $R2, $R7 ;
+3. MUL.F $R15, $R2, $R13 ;
+4. LDW $R14, 4($R5) ;
+2. ADDU $R3, $R3, $R4 ;
+5. ADD.F $R9, $R10, $R8 ;
+5. ADD.F $R16, $R14, $R15 ;
+8. ADDI $R1, $R1, -2 ;
+7. ADDU $R5, $R5, $R6 ;
+6. STW $R9, 0($R5) ;
+6. STW $R16, 4($R5) ;
+9. BNE $R1, $0 ;

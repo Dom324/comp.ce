@@ -1,0 +1,24 @@
+9.1
+  - OpenCL is focused on optimizing compute on arrays and matrices, therefore it is not fit for optimizing computations on trees/graphs.
+  - OpenMP is easy and efficient to use on trees/graphs.
+  - Paralellizing such code with MPI would be difficult but possible.
+
+9.2
+  a, The ratio of computation to memory transfers (1M : 3x 1M) makes it not worth to do the computation on the GPU - there is only one operation per three transfers
+  b, The ratio of computation to memory transfers (8B : 3x 16M) makes it worth to do the computation on the GPU - there are many operations per each CPU <-> GPU transfer
+  c, CPU, GPUs are not very good at branching (while (c = *str++))
+  d, The code is not trivially parallelizable on GPU due to `for (int j = 2; j <= maxToTest; j++)` (number of iterations is different for each input)
+     plus there would be overhead due to transfering the data from CPU to GPU.
+
+9.3
+  a, GPU, it can do the computations faster and there is no transfer penalty
+  b, GPU, it can do the computations faster and there is no transfer penalty
+  c, CPU, GPUs are not very good at branching (while (c = *str++))
+  d, The code is not trivially parallelizable on the GPU due to `for (int j = 2; j <= maxToTest; j++)` (number of iterations is different for each input).
+
+9.4
+  main - 100 ms
+  first - 95 ms
+  second - 55 ms
+  print_results - 4.9 ms
+  printf - 4.8 ms

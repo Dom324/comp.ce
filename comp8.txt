@@ -1,0 +1,25 @@
+8.1
+  A, Samsung Galaxy S20Fe
+  B, Exynos 990
+  C,D, Octa-core (2x2.73 GHz Mongoose M5 & 2x2.50 GHz Cortex-A76 & 4x2.0 GHz Cortex-A55)
+  E, Mali-G77 MP11
+  F, No extra accelerators
+
+8.2
+  8 000 000 000 000 / (15 750 000 000 / 4) = 2031.74
+  GPU can do 2031.74 operations per every float transfered from CPU to GPU maximally
+
+  400 000 000 000 / (15 750 000 000 / 4) = x
+  x = 101.58
+  For the code to be worth to be done on the GPU there would have to be at least 101.58 operations per every float transferred from CPU to GPU
+
+8.3
+  Running three threads on a dual core CPU is less than ideal because of the cost of context switches.
+  It would be better to have only two threads, each of which does 2x 20000 matrix ops and 1x 30000 matrix
+  ps (so that they are balanced)
+
+8.4
+  A, OpenCL Platforms - e.g. Intel SDK for OpenCL, nVidia SDK for OpenCL (usually one per vendor)
+  B, OpenCL Devices - Physical compute device, e.g. a GPU or a CPU
+  C, OpenCL Compute Units - CPU core, GPU compute unit (SM for nVidia, CU for AMD)
+  D, OpenCL Processing Elements - adders inside CPU SIMD unit, adders inside SM/CU units

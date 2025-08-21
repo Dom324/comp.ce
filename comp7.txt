@@ -1,0 +1,32 @@
+6.1
+    A - Map
+    B - Reduction
+    C - Map
+    D - Reduction
+    E - Scan
+    F - Stencil
+
+6.2
+    A - Reduction
+    B -
+```
+float result = 0.0;
+float diffs[8];
+
+// Vector addition
+for (int i = 0; i < 8; i += 2)
+{
+    diffs[i] = fabs(A[i] - B[i]);
+}
+result = ((diffs[0] + diffs[1]) + (diffs[2] + diffs[3])) + ((diffs[4] + diffs[5]) + (diffs[6] + diffs[7]));
+
+```
+    The code now exposes more instruction level parallelism and the critical path is shorter.
+    Before the CPU would have to calculate result = diff[0] + diff[1] + ... diff[7] (eight serial additions).
+    Now the CPU would calculate the diff addition in parallel.
+
+6.3
+    A - Thread 1 is map
+      - Thread 2 is reduction
+    B - Calculation of `Diff` can be vectorized (calculating N diffs in one instruction)
+      - Calculation of `result` can be performed with a horizontal add vector instruction (if a CPU has such instruction)
